@@ -62,7 +62,7 @@
                                             <th>ID</th>
                                             <th>Product</th>
                                             <th>Unit Price</th>
-                                            <th>Tax %</th>
+                                            <th>Tax (%)</th>
                                             <th>Tax Price</th>
                                             <th>Quantity</th>
                                             <th>Total price</th>

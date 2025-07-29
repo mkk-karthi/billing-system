@@ -30,7 +30,7 @@
                                             <th>Product</th>
                                             <th>Quantity</th>
                                             <th>Unit Price</th>
-                                            <th>Tax %</th>
+                                            <th>Tax (%)</th>
                                             <th></th>
                                         </tr>
                                     </thead>

@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-title text-center border-bottom">
-                <p class="fw-bold fs-3">Product Update</p>
+                <p class="fw-bold fs-3">Product</p>
             </div>
             <div class="card-body mt-3 p-2">
                 <form id="product-form">
