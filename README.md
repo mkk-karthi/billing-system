@@ -77,7 +77,7 @@ php artisan serve
 -   Send notifications via:
     -   Email (configured in `.env`)
 
-## 🖼️ Gallery Feature
+## 🖼️ Gallery
 
 <p align="center">
 Products
