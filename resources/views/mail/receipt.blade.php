@@ -1,30 +1,34 @@
 <div>
-    <p><b>Customer email:</b> {{ $order['email'] }}</p>
+    <p><b>Inv. No:</b> {{ $order['invoice_no'] }}</p>
+    <p><b>Customer name:</b> {{ $order['user']['name'] }}</p>
+    <p><b>Customer email:</b> {{ $order['user']['email'] }}</p>
+    <p><b>Date:</b> {{ $order['date'] }}</p>
+    <p><b>Time:</b> {{ $order['time'] }}</p>
 </div>
 <div><b>Bill section</b></div>
 <table style="width: 100%; border-collapse: collapse;">
     <thead>
         <tr>
-            <th>Product ID</th>
+            <th>ID</th>
+            <th>Product</th>
             <th>Unit Price</th>
+            <th>Tax (%)</th>
+            <th>Tax Price</th>
             <th>Quantity</th>
-            <th>Purchase Price</th>
-            <th>Tax % for item</th>
-            <th>Tax payable for item</th>
-            <th>Total price of the item</th>
+            <th>Total price</th>
         </tr>
     </thead>
     <tbody>
         @if (count($order['order_details']))
-            @foreach ($order['order_details'] as $order_detail)
+            @foreach ($order['order_details'] as $orderDetail)
                 <tr>
-                    <td>{{ $order_detail['product_name'] }}</td>
-                    <td>{{ $order_detail['product_price'] }}</td>
-                    <td>{{ $order_detail['product_qty'] }}</td>
-                    <td>{{ $order_detail['order_price'] }}</td>
-                    <td>{{ $order_detail['order_tax'] }}%</td>
-                    <td>{{ $order_detail['tax_price'] }}</td>
-                    <td>{{ $order_detail['total_price'] }}</td>
+                    <td>{{ $orderDetail['product_sku'] }}</td>
+                    <td>{{ $orderDetail['product_name'] }}</td>
+                    <td>{{ $orderDetail['product_price'] }}</td>
+                    <td>{{ $orderDetail['order_tax'] }}%</td>
+                    <td>{{ $orderDetail['tax_price'] }}</td>
+                    <td>{{ $orderDetail['product_qty'] }}</td>
+                    <td>{{ $orderDetail['total_price'] }}</td>
                 </tr>
             @endforeach
         @endif
@@ -42,15 +46,19 @@
             <td>{{ $order['order_tax_price'] }}</td>
         </tr>
         <tr>
-            <td>Net price of the purchased item:</td>
+            <td>Discount:</td>
+            <td>{{ $order['order_discount'] }}</td>
+        </tr>
+        <tr>
+            <td>Net price:</td>
             <td>{{ $order['net_price'] }}</td>
         </tr>
         <tr>
-            <td>Rounded down value of the purchased items net price:</td>
+            <td>Round of net price:</td>
             <td>{{ $order['round_net_price'] }}</td>
         </tr>
         <tr>
-            <td>Balance payable to the customer:</td>
+            <td>Balance amount:</td>
             <td>{{ $order['order_balance_amount'] }}</td>
         </tr>
     </table>
@@ -58,17 +66,17 @@
 
 <hr>
 
-<div style="display: flex; text-align: end; margin-top:20px; justify-content: end; flex-direction: column;">
-    <b>Balance denomination</b>
+@if (!empty($order['balance_denominations']))
+    <div style="display: flex; text-align: end; margin-top:20px; justify-content: end; flex-direction: column;">
+        <b>Balance denomination</b>
 
-    <table style="width: 100%; text-align: right;">
-        @if (count($order['balance_denominations']))
+        <table style="width: 100%; text-align: right;">
             @foreach ($order['balance_denominations'] as $denomination => $count)
                 <tr>
                     <td>{{ $denomination }}: </td>
                     <td style="width: 30px">{{ $count }}</td>
                 </tr>
             @endforeach
-        @endif
-    </table>
-</div>
+        </table>
+    </div>
+@endif

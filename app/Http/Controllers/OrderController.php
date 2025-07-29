@@ -100,6 +100,7 @@ class OrderController extends Controller
 
 		$totalAmount = floor($orderTotalAmount + $orderTaxAmount);
 		$discount = $inputs["discount"] ?? 0;
+		$totalDiscountedAmount = $totalAmount - $discount;
 
 		// calculate paid amount
 		$denominations = array_map(fn($v) => empty($v) ? 0 : $v, $inputs["denominations"]);
@@ -107,7 +108,7 @@ class OrderController extends Controller
 
 			// calculate denominations
 			$denominations = [];
-			$denominationAmount = $totalAmount;
+			$denominationAmount = $totalDiscountedAmount;
 			$denominationAmts = config("common.denominations");
 			$j = 0;
 
@@ -125,9 +126,8 @@ class OrderController extends Controller
 		}
 
 		// check paid amount
-		$totalDiscountedAmount = $totalAmount - $discount;
 		if (count($errors) == 0 && $paidAmount > ($totalDiscountedAmount)) {
-			$errors[] = "Paid amount must be less than or equal to $totalDiscountedAmount";
+			$errors[] = "Paid amount must be less than or equal to $totalDiscountedAmount $paidAmount";
 		}
 
 		// check errors
