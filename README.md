@@ -60,7 +60,6 @@ php artisan serve
     -   Title,  price, tax
     -   Variants (size, color, etc.)
     -   Image uploads
----
 
 ## 🧮 Billing & Discounts
 
@@ -68,14 +67,14 @@ php artisan serve
 -   Apply for discounts
 -   Automatically calculate total
 -   Save and review previous bills
- 
----
 
 ## 📩 E-Receipt & Notifications
 
 -   Automatically generate a receipt after checkout
 -   Send notifications via:
     -   Email (configured in `.env`)
+
+---
 
 ## 🖼️ Gallery
 
