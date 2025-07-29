@@ -22,7 +22,7 @@ Follow these steps to set up the project on your local machine.
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/laravel-billing-system.git
+git clone https://github.com/mkk-karthi/laravel-billing-system.git
 cd laravel-billing-system
 ```
 
