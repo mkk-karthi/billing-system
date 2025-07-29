@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Products;
-use App\Models\ProductVarients;
+use App\Models\ProductVariants;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,7 +15,7 @@ class ProductsSeeder extends Seeder
 	public function run(): void
 	{
 
-		$varientTypes = array_flip(config("common.productVarientTypes"));
+		$variantTypes = array_flip(config("common.productVariantTypes"));
 
 		$insertDatas = [
 			[
@@ -23,14 +23,14 @@ class ProductsSeeder extends Seeder
 				"product_quantity" => 50,
 				"product_price" => 799.99,
 				"product_tax" => "18.00",
-				"varients" => [
+				"variants" => [
 					[
-						"varient_type" => $varientTypes["storage"],
-						"varient_value" => "8GB"
+						"variant_type" => $variantTypes["storage"],
+						"variant_value" => "8GB"
 					],
 					[
-						"varient_type" => $varientTypes["color"],
-						"varient_value" => "Black"
+						"variant_type" => $variantTypes["color"],
+						"variant_value" => "Black"
 					]
 				]
 			],
@@ -39,14 +39,14 @@ class ProductsSeeder extends Seeder
 				"product_quantity" => 50,
 				"product_price" => 999.99,
 				"product_tax" => "18.00",
-				"varients" => [
+				"variants" => [
 					[
-						"varient_type" => $varientTypes["storage"],
-						"varient_value" => "16GB"
+						"variant_type" => $variantTypes["storage"],
+						"variant_value" => "16GB"
 					],
 					[
-						"varient_type" => $varientTypes["color"],
-						"varient_value" => "White"
+						"variant_type" => $variantTypes["color"],
+						"variant_value" => "White"
 					]
 				]
 			],
@@ -55,10 +55,10 @@ class ProductsSeeder extends Seeder
 				"product_quantity" => 120,
 				"product_price" => 499.99,
 				"product_tax" => "15.00",
-				"varients" => [
+				"variants" => [
 					[
-						"varient_type" => $varientTypes["color"],
-						"varient_value" => "Blue"
+						"variant_type" => $variantTypes["color"],
+						"variant_value" => "Blue"
 					]
 				]
 			],
@@ -67,10 +67,10 @@ class ProductsSeeder extends Seeder
 				"product_quantity" => 120,
 				"product_price" => 499.99,
 				"product_tax" => "15.00",
-				"varients" => [
+				"variants" => [
 					[
-						"varient_type" => $varientTypes["color"],
-						"varient_value" => "Red"
+						"variant_type" => $variantTypes["color"],
+						"variant_value" => "Red"
 					]
 				]
 			],
@@ -79,10 +79,10 @@ class ProductsSeeder extends Seeder
 				"product_quantity" => 120,
 				"product_price" => 499.99,
 				"product_tax" => "15.00",
-				"varients" => [
+				"variants" => [
 					[
-						"varient_type" => $varientTypes["color"],
-						"varient_value" => "Black"
+						"variant_type" => $variantTypes["color"],
+						"variant_value" => "Black"
 					]
 				]
 			],
@@ -91,10 +91,10 @@ class ProductsSeeder extends Seeder
 				"product_quantity" => 80,
 				"product_price" => 129.99,
 				"product_tax" => "10.00",
-				"varients" => [
+				"variants" => [
 					[
-						"varient_type" => $varientTypes["color"],
-						"varient_value" => "Black"
+						"variant_type" => $variantTypes["color"],
+						"variant_value" => "Black"
 					]
 				]
 			],
@@ -103,14 +103,14 @@ class ProductsSeeder extends Seeder
 				"product_quantity" => 50,
 				"product_price" => 199.99,
 				"product_tax" => "12.00",
-				"varients" => [
+				"variants" => [
 					[
-						"varient_type" => $varientTypes["size"],
-						"varient_value" => "S"
+						"variant_type" => $variantTypes["size"],
+						"variant_value" => "S"
 					],
 					[
-						"varient_type" => $varientTypes["color"],
-						"varient_value" => "Black"
+						"variant_type" => $variantTypes["color"],
+						"variant_value" => "Black"
 					]
 				]
 			],
@@ -119,14 +119,14 @@ class ProductsSeeder extends Seeder
 				"product_quantity" => 50,
 				"product_price" => 199.99,
 				"product_tax" => "12.00",
-				"varients" => [
+				"variants" => [
 					[
-						"varient_type" => $varientTypes["size"],
-						"varient_value" => "S"
+						"variant_type" => $variantTypes["size"],
+						"variant_value" => "S"
 					],
 					[
-						"varient_type" => $varientTypes["color"],
-						"varient_value" => "White"
+						"variant_type" => $variantTypes["color"],
+						"variant_value" => "White"
 					]
 				]
 			],
@@ -135,14 +135,14 @@ class ProductsSeeder extends Seeder
 				"product_quantity" => 50,
 				"product_price" => 199.99,
 				"product_tax" => "12.00",
-				"varients" => [
+				"variants" => [
 					[
-						"varient_type" => $varientTypes["size"],
-						"varient_value" => "M"
+						"variant_type" => $variantTypes["size"],
+						"variant_value" => "M"
 					],
 					[
-						"varient_type" => $varientTypes["color"],
-						"varient_value" => "Black"
+						"variant_type" => $variantTypes["color"],
+						"variant_value" => "Black"
 					]
 				]
 			],
@@ -151,14 +151,14 @@ class ProductsSeeder extends Seeder
 				"product_quantity" => 50,
 				"product_price" => 199.99,
 				"product_tax" => "12.00",
-				"varients" => [
+				"variants" => [
 					[
-						"varient_type" => $varientTypes["size"],
-						"varient_value" => "M"
+						"variant_type" => $variantTypes["size"],
+						"variant_value" => "M"
 					],
 					[
-						"varient_type" => $varientTypes["color"],
-						"varient_value" => "White"
+						"variant_type" => $variantTypes["color"],
+						"variant_value" => "White"
 					]
 				]
 			],
@@ -167,14 +167,14 @@ class ProductsSeeder extends Seeder
 				"product_quantity" => 50,
 				"product_price" => 199.99,
 				"product_tax" => "12.00",
-				"varients" => [
+				"variants" => [
 					[
-						"varient_type" => $varientTypes["size"],
-						"varient_value" => "L"
+						"variant_type" => $variantTypes["size"],
+						"variant_value" => "L"
 					],
 					[
-						"varient_type" => $varientTypes["color"],
-						"varient_value" => "Black"
+						"variant_type" => $variantTypes["color"],
+						"variant_value" => "Black"
 					]
 				]
 			],
@@ -183,14 +183,14 @@ class ProductsSeeder extends Seeder
 				"product_quantity" => 50,
 				"product_price" => 199.99,
 				"product_tax" => "12.00",
-				"varients" => [
+				"variants" => [
 					[
-						"varient_type" => $varientTypes["size"],
-						"varient_value" => "L"
+						"variant_type" => $variantTypes["size"],
+						"variant_value" => "L"
 					],
 					[
-						"varient_type" => $varientTypes["color"],
-						"varient_value" => "White"
+						"variant_type" => $variantTypes["color"],
+						"variant_value" => "White"
 					]
 				]
 			],
@@ -199,10 +199,10 @@ class ProductsSeeder extends Seeder
 				"product_quantity" => 90,
 				"product_price" => 89.99,
 				"product_tax" => "8.00",
-				"varients" => [
+				"variants" => [
 					[
-						"varient_type" => $varientTypes["color"],
-						"varient_value" => "Black"
+						"variant_type" => $variantTypes["color"],
+						"variant_value" => "Black"
 					]
 				]
 			],
@@ -211,10 +211,10 @@ class ProductsSeeder extends Seeder
 				"product_quantity" => 90,
 				"product_price" => 89.99,
 				"product_tax" => "8.00",
-				"varients" => [
+				"variants" => [
 					[
-						"varient_type" => $varientTypes["color"],
-						"varient_value" => "White"
+						"variant_type" => $variantTypes["color"],
+						"variant_value" => "White"
 					]
 				]
 			],
@@ -223,10 +223,10 @@ class ProductsSeeder extends Seeder
 				"product_quantity" => 150,
 				"product_price" => 39.99,
 				"product_tax" => "8.00",
-				"varients" => [
+				"variants" => [
 					[
-						"varient_type" => $varientTypes["color"],
-						"varient_value" => "Black"
+						"variant_type" => $variantTypes["color"],
+						"variant_value" => "Black"
 					]
 				]
 			],
@@ -235,10 +235,10 @@ class ProductsSeeder extends Seeder
 				"product_quantity" => 150,
 				"product_price" => 39.99,
 				"product_tax" => "8.00",
-				"varients" => [
+				"variants" => [
 					[
-						"varient_type" => $varientTypes["color"],
-						"varient_value" => "White"
+						"variant_type" => $variantTypes["color"],
+						"variant_value" => "White"
 					]
 				]
 			]
@@ -256,9 +256,9 @@ class ProductsSeeder extends Seeder
 
 			$sku = ++$sku;
 
-			$varients = array_map(fn($var) => array_merge($var, ["varient_product_id" => $product->product_id]), $insertData["varients"]);
+			$variants = array_map(fn($var) => array_merge($var, ["variant_product_id" => $product->product_id]), $insertData["variants"]);
 
-			ProductVarients::insert($varients);
+			ProductVariants::insert($variants);
 		}
 	}
 }

@@ -75,7 +75,7 @@
                                                     <td>{{ $orderDetail['product_sku'] }}</td>
                                                     <td>
                                                         <p class="fw-medium m-0">{{ $orderDetail['product_name'] }}</p>
-                                                        <p class="text-secondary m-0">{{ $orderDetail['varient_name'] }}</p>
+                                                        <p class="text-secondary m-0">{{ $orderDetail['variant_name'] }}</p>
                                                     </td>
                                                     <td>{{ $orderDetail['product_price'] }}</td>
                                                     <td>{{ $orderDetail['order_tax'] }}%</td>

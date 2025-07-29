@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Products;
-use App\Models\ProductVarients;
+use App\Models\ProductVariants;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,8 +17,8 @@ class ProductsController extends Controller
 	 */
 	public function index()
 	{
-		$varientTypes = config('common.productVarientTypes');
-		$products = Products::with('varients')->paginate(10);
+		$variantTypes = config('common.productVariantTypes');
+		$products = Products::with('variants')->paginate(10);
 
 		$productsData = [];
 		foreach ($products as $product) {
@@ -29,8 +29,8 @@ class ProductsController extends Controller
 				"product_image" => Storage::disk("public")->url($product->product_image ?? "products/empty.svg"),
 				"product_quantity" => $product->product_quantity,
 				"product_price" => $product->product_price,
-				"varients" => $product->varients->toArray(),
-				"varient_name" => join(", ", array_map(fn($var) => $varientTypes[$var['varient_type']] . ': ' . $var['varient_value'], $product->varients->toArray())),
+				"variants" => $product->variants->toArray(),
+				"variant_name" => join(", ", array_map(fn($var) => $variantTypes[$var['variant_type']] . ': ' . $var['variant_value'], $product->variants->toArray())),
 			];
 		}
 		return view('products.index', ["products" => $products, "productsData" => $productsData]);
@@ -49,7 +49,7 @@ class ProductsController extends Controller
 	public function store(Request $request)
 	{
 		$inputs = $request->all();
-		$varientTypes = array_keys(config('common.productVarientTypes'));
+		$variantTypes = array_keys(config('common.productVariantTypes'));
 
 		// validation
 		$validator = Validator::make($inputs, [
@@ -59,13 +59,13 @@ class ProductsController extends Controller
 			"quantity" => "required|numeric",
 			"price" => "required|numeric",
 			"tax" => "required|numeric",
-			"varient" => "required|array",
-			"varient.*.type" => "required|in:" . join(',', $varientTypes),
-			"varient.*.value" => "required|string",
+			"variant" => "required|array",
+			"variant.*.type" => "required|in:" . join(',', $variantTypes),
+			"variant.*.value" => "required|string",
 		], [
-			"varient.*.type.required" => "Type is required.",
-			"varient.*.value.required" => "Value is required.",
-			"varient.*.value.string" => "Value must be a string.",
+			"variant.*.type.required" => "Type is required.",
+			"variant.*.value.required" => "Value is required.",
+			"variant.*.value.string" => "Value must be a string.",
 		]);
 
 		// validation errors
@@ -97,16 +97,16 @@ class ProductsController extends Controller
 				if ($product) {
 					$productId = $product->product_id;
 
-					// insert varient details
-					foreach ($inputs["varient"] as $varient) {
+					// insert variant details
+					foreach ($inputs["variant"] as $variant) {
 
-						$varientInput = [
-							"varient_type" => $varient["type"],
-							"varient_value" => $varient["value"],
-							"varient_product_id" => $productId
+						$variantInput = [
+							"variant_type" => $variant["type"],
+							"variant_value" => $variant["value"],
+							"variant_product_id" => $productId
 						];
 
-						ProductVarients::create($varientInput);
+						ProductVariants::create($variantInput);
 					}
 				}
 
@@ -131,7 +131,7 @@ class ProductsController extends Controller
 	public function edit($id)
 	{
 		// get product
-		$product = Products::with(["varients"])->where("product_id", $id)->first();
+		$product = Products::with(["variants"])->where("product_id", $id)->first();
 
 		if (is_null($product)) {
 			return abort(404);
@@ -149,7 +149,7 @@ class ProductsController extends Controller
 	public function update(Request $request)
 	{
 		$inputs = $request->all();
-		$varientTypes = array_keys(config('common.productVarientTypes'));
+		$variantTypes = array_keys(config('common.productVariantTypes'));
 		$productId = $inputs['id'] ?? "";
 
 		$validator = Validator::make($inputs, [
@@ -160,13 +160,13 @@ class ProductsController extends Controller
 			"quantity" => "required|numeric",
 			"price" => "required|numeric",
 			"tax" => "required|numeric",
-			"varient" => "required|array",
-			"varient.*.type" => "required|in:" . join(',', $varientTypes),
-			"varient.*.value" => "required|string",
+			"variant" => "required|array",
+			"variant.*.type" => "required|in:" . join(',', $variantTypes),
+			"variant.*.value" => "required|string",
 		], [
-			"varient.*.type.required" => "Type is required.",
-			"varient.*.value.required" => "Value is required.",
-			"varient.*.value.string" => "Value must be a string.",
+			"variant.*.type.required" => "Type is required.",
+			"variant.*.value.required" => "Value is required.",
+			"variant.*.value.string" => "Value must be a string.",
 		]);
 
 		if ($validator->fails()) {
@@ -209,25 +209,25 @@ class ProductsController extends Controller
 				if ($update_product) {
 					$productId = $inputs['id'];
 
-					$oldVarientIds = ProductVarients::where("varient_product_id", $productId)->pluck('varient_id')->toArray();
-					$newVarientIds = array_map(fn($v) => trim($v), array_column($inputs["varient"], "id"));
+					$oldVariantIds = ProductVariants::where("variant_product_id", $productId)->pluck('variant_id')->toArray();
+					$newVariantIds = array_map(fn($v) => trim($v), array_column($inputs["variant"], "id"));
 
-					$deleteVarientIds = array_diff($oldVarientIds, $newVarientIds);
-					ProductVarients::whereIn("varient_id", $deleteVarientIds)->delete();
+					$deleteVariantIds = array_diff($oldVariantIds, $newVariantIds);
+					ProductVariants::whereIn("variant_id", $deleteVariantIds)->delete();
 
-					// insert varient details
-					foreach ($inputs["varient"] as $varient) {
+					// insert variant details
+					foreach ($inputs["variant"] as $variant) {
 
-						$varientInput = [
-							"varient_type" => $varient["type"],
-							"varient_value" => $varient["value"],
-							"varient_product_id" => $productId
+						$variantInput = [
+							"variant_type" => $variant["type"],
+							"variant_value" => $variant["value"],
+							"variant_product_id" => $productId
 						];
 
-						if (!empty($varient["id"])) {
-							ProductVarients::where("varient_id", $varient["id"])->update($varientInput);
+						if (!empty($variant["id"])) {
+							ProductVariants::where("variant_id", $variant["id"])->update($variantInput);
 						} else {
-							ProductVarients::create($varientInput);
+							ProductVariants::create($variantInput);
 						}
 					}
 
@@ -267,8 +267,8 @@ class ProductsController extends Controller
 			} else {
 				DB::beginTransaction();
 
-				// delete Product Varients
-				ProductVarients::where("varient_product_id", $id)->delete();
+				// delete Product Variants
+				ProductVariants::where("variant_product_id", $id)->delete();
 
 				// delete product
 				Products::where("product_id", $id)->delete();

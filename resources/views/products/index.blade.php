@@ -37,7 +37,7 @@
                                             <img src="{{ url($product['product_image']) }}"
                                                 alt="{{ $product['product_name'] }}" width="60" />
                                         </td>
-                                        <td>{{ $product['varient_name'] }}</td>
+                                        <td>{{ $product['variant_name'] }}</td>
                                         <td>{{ $product['product_quantity'] }}</td>
                                         <td>{{ $product['product_price'] }}</td>
                                         <td>

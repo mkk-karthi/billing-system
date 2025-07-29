@@ -65,10 +65,10 @@
                         </div>
 
                         <div class="col-12 d-flex justify-content-between">
-                            <p class="fs-6 fw-bold">Varient Details</p>
-                            <button type="button" class="btn btn-success m-2" id="add-varient">Add new</button>
+                            <p class="fs-6 fw-bold">Variant Details</p>
+                            <button type="button" class="btn btn-success m-2" id="add-variant">Add new</button>
                         </div>
-                        <div class="col-12 mb-3" id="varient-details">
+                        <div class="col-12 mb-3" id="variant-details">
                         </div>
                         <div class="col-12" id="messages"> </div>
 
@@ -88,8 +88,8 @@
     <script>
         $(() => {
 
-            let varientTypes = @php
-                echo json_encode(config('common.productVarientTypes'));
+            let variantTypes = @php
+                echo json_encode(config('common.productVariantTypes'));
             @endphp;
             const productId = "{{ $id ?? '' }}";
 
@@ -199,17 +199,17 @@
                     inputData.append("tax", tax)
                     if (file) inputData.append("image", file)
 
-                    // get varients
-                    $(`#varient-details`).children().each(function() {
+                    // get variants
+                    $(`#variant-details`).children().each(function() {
                         const id = $(this).data("id")
-                        const varientId = $(this).data("varient-id")
+                        const variantId = $(this).data("variant-id")
 
-                        const type = $(`#varient-${id}-type`).val();
-                        const value = $(`#varient-${id}-value`).val();
+                        const type = $(`#variant-${id}-type`).val();
+                        const value = $(`#variant-${id}-value`).val();
 
-                        inputData.append(`varient[${id}][id]`, varientId)
-                        inputData.append(`varient[${id}][type]`, type)
-                        inputData.append(`varient[${id}][value]`, value)
+                        inputData.append(`variant[${id}][id]`, variantId)
+                        inputData.append(`variant[${id}][type]`, type)
+                        inputData.append(`variant[${id}][value]`, value)
                     })
 
                     $.ajax({
@@ -271,23 +271,23 @@
 
             })
 
-            let varientKey = 0;
-            const addVarient = (id = "") => {
-                let selectBox = varientTypes.map((v, k) => `<option value="${k}">${v}</option>`).join('');
-                if ($(`#varient-details`).children().length < {{ config('common.maxVarients') }}) {
-                    $("#varient-details").append(`<div class="card my-2" id="varient-${varientKey}" data-id="${varientKey}" data-varient-id="${id}">
+            let variantKey = 0;
+            const addVariant = (id = "") => {
+                let selectBox = variantTypes.map((v, k) => `<option value="${k}">${v}</option>`).join('');
+                if ($(`#variant-details`).children().length < {{ config('common.maxVariants') }}) {
+                    $("#variant-details").append(`<div class="card my-2" id="variant-${variantKey}" data-id="${variantKey}" data-variant-id="${id}">
 						<div class="card-body row p-2">
 							<div class="col-12 col-sm-3 col-md-3 mb-2">
-								<select class="form-select" name="varient.${varientKey}.type" id="varient-${varientKey}-type" required>
+								<select class="form-select" name="variant.${variantKey}.type" id="variant-${variantKey}-type" required>
 									<option value="" selected>Select the Type</option>
 									${selectBox}
 								</select>
 							</div>
 							<div class="col-12 col-sm-3 col-md-3 mb-2">
-								<input type="text" name="varient.${varientKey}.value" value="" class="form-control" placeholder="Value" autocomplete="off" id="varient-${varientKey}-value" required>
+								<input type="text" name="variant.${variantKey}.value" value="" class="form-control" placeholder="Value" autocomplete="off" id="variant-${variantKey}-value" required>
 							</div>
 							<div class="col-12 col-sm-3 col-md-3 text-center">
-								<button type="button" class="btn btn-danger btn-sm m-2"  id="delete-${varientKey}-varient" data-id="${varientKey}">
+								<button type="button" class="btn btn-danger btn-sm m-2"  id="delete-${variantKey}-variant" data-id="${variantKey}">
 									<i class="bi bi-trash3"></i>
 								</button>
 							</div>
@@ -295,43 +295,43 @@
 					</div>`)
 
 
-                    $(`#delete-${varientKey}-varient`).click(function() {
+                    $(`#delete-${variantKey}-variant`).click(function() {
 
-                        // check at least 1 varient is required
-                        if ($(`#varient-details`).children().length > 1) {
+                        // check at least 1 variant is required
+                        if ($(`#variant-details`).children().length > 1) {
 
                             let id = $(this).attr("data-id");
-                            $(`#varient-${id}`).remove();
+                            $(`#variant-${id}`).remove();
                         } else {
 
                             $("#errorModal").modal("show")
                             $(".modal-body").html(
-                                "<p class='text-danger'>At least 1 varient is required</p>")
+                                "<p class='text-danger'>At least 1 variant is required</p>")
                         }
                     })
 
-                    varientKey++;
+                    variantKey++;
                 } else {
                     $("#errorModal").modal("show")
                     $(".modal-body").html(
-                        "<p class='text-danger'>Max {{ config('common.maxVarients') }} varients only</p>")
+                        "<p class='text-danger'>Max {{ config('common.maxVariants') }} variants only</p>")
                 }
             }
 
-            $("#add-varient").click(() => addVarient())
+            $("#add-variant").click(() => addVariant())
 
             if (productId) {
-                @if (!empty($product['varients']))
-                    @foreach ($product['varients'] as $row)
-                        varientKey = {{ $row['varient_id'] }};
-                        addVarient("{{ $row['varient_id'] }}");
+                @if (!empty($product['variants']))
+                    @foreach ($product['variants'] as $row)
+                        variantKey = {{ $row['variant_id'] }};
+                        addVariant("{{ $row['variant_id'] }}");
 
-                        $(`#varient-${varientKey-1}-type`).val("{{ $row['varient_type'] }}");
-                        $(`#varient-${varientKey-1}-value`).val("{{ $row['varient_value'] }}");
+                        $(`#variant-${variantKey-1}-type`).val("{{ $row['variant_type'] }}");
+                        $(`#variant-${variantKey-1}-value`).val("{{ $row['variant_value'] }}");
                     @endforeach
                 @endif
             } else {
-                addVarient();
+                addVariant();
             }
         })
     </script>

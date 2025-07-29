@@ -205,10 +205,10 @@ class OrderController extends Controller
 	public function getOrderDetails($id)
 	{
 		$data = [];
-		$varientTypes = config("common.productVarientTypes");
+		$variantTypes = config("common.productVariantTypes");
 
 		// get order
-		$order = Order::with(["user", "order_details.product.varients"])->where("order_id", $id)->first();
+		$order = Order::with(["user", "order_details.product.variants"])->where("order_id", $id)->first();
 
 		if (!empty($order)) {
 			$order = $order->toArray();
@@ -233,8 +233,8 @@ class OrderController extends Controller
 				$productName = $product['product_name'];
 				$productSku = $product['product_sku'];
 
-				$varients = $product['varients'];
-				$varientsName = join(", ", array_map(fn($varient) => $varientTypes[$varient["varient_type"]] . ": " . $varient["varient_value"], $varients));
+				$variants = $product['variants'];
+				$variantsName = join(", ", array_map(fn($variant) => $variantTypes[$variant["variant_type"]] . ": " . $variant["variant_value"], $variants));
 
 				// calculate order details
 				$productPrice = $orderDetail['order_details_price'];
@@ -250,7 +250,7 @@ class OrderController extends Controller
 
 				$orderDetails[] = [
 					"product_name" => $productName,
-					"varient_name" => $varientsName,
+					"variant_name" => $variantsName,
 					"product_sku" => $productSku,
 					"product_price" => $productPrice,
 					"product_qty" => $productQty,

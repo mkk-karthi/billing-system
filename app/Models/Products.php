@@ -16,12 +16,12 @@ class Products extends Model
 	protected $fillable = ['product_name', 'product_sku', 'product_image', 'product_quantity', 'product_price', 'product_tax'];
 
 	/**
-	 * Get all of the varients for the Products
+	 * Get all of the variants for the Products
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
-	public function varients(): HasMany
+	public function variants(): HasMany
 	{
-		return $this->hasMany(ProductVarients::class, 'varient_product_id', 'product_id');
+		return $this->hasMany(ProductVariants::class, 'variant_product_id', 'product_id');
 	}
 }

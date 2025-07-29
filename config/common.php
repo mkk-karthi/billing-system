@@ -4,11 +4,11 @@ return [
 	"sendNotification" => false,
 	"orderRefNo" => "REF_000001",
 	"SkuNo" => "SKU_000001",
-	"maxVarients" => 3,
+	"maxVariants" => 3,
 	"maxBillingProducts" => 10,
 	"maxBillingProductQty" => 10,
 	"denominationFlag" => false,
-	"productVarientTypes" => [
+	"productVariantTypes" => [
 		0 => "other",
 		1 => "size",
 		2 => "color",
