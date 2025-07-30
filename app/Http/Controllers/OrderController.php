@@ -390,7 +390,7 @@ class OrderController extends Controller
 
 			return response()->json([
 				"code" => 0,
-				"message" => "Mail sened"
+				"message" => "Mail sended"
 			]);
 		} catch (Exception $ex) {
 			return response()->json(["code" => 2, "message" => $ex->getMessage()]);

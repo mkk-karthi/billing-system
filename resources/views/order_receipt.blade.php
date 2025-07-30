@@ -166,32 +166,39 @@
             });
 
             $("#mail-btn").click(() => {
-                $.get("{{ $mailUrl }}", (res) => {
+                $("#mail-btn").prop("disabled", true)
+                let mailBtn = $("#mail-btn").html();
+                $("#mail-btn").html("Sending...");
+
+                $.get("{{ $mailUrl }}").done((res) => {
+                    $("#mail-btn").prop("disabled", false)
+                    $("#mail-btn").html(mailBtn);
+
+                    let msgContent = "";
+
                     if (res.code == 2) {
 
                         // show error message
-                        const msgContent =
+                        msgContent =
                             `<div class="alert alert-danger" role="alert">${res.message}</div>`;
                         $("#messages").append(msgContent)
-
-                        setTimeout(() => {
-                            $("#messages").html($("#messages").html()
-                                .replace(msgContent, ""))
-                        }, 5000);
                     } else {
 
                         // show success message
-                        const msgContent =
+                        msgContent =
                             `<div class="alert alert-success" role="alert">${res.message}</div>`;
                         $("#messages").html(msgContent)
-
-                        setTimeout(() => {
-                            $("#messages").html($("#messages").html()
-                                .replace(msgContent, ""))
-                        }, 5000);
-
                     }
-                })
+
+                    setTimeout(() => {
+                        $("#messages").html($("#messages").html()
+                            .replace(msgContent, ""))
+                    }, 5000);
+                }).fail((err) => {
+                    $("#mail-btn").prop("disabled", false)
+                    $("#mail-btn").html(mailBtn);
+                    console.log("Error:", err);
+                });
             });
         });
     </script>
