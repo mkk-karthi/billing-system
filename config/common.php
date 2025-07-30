@@ -1,7 +1,7 @@
 <?php
 
 return [
-	"sendNotification" => false,
+	"sendNotification" => true,
 	"orderRefNo" => "REF_000001",
 	"SkuNo" => "SKU_000001",
 	"maxVariants" => 3,

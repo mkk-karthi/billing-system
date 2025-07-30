@@ -80,11 +80,13 @@ php artisan serve
 
 <p align="center">
 Products
-<img src="https://raw.githubusercontent.com/mkk-karthi/laravel-billing-system/master/public/tutorial/products.png" alt="Billing System using laravel"><br>
+<img src="https://raw.githubusercontent.com/mkk-karthi/laravel-billing-system/master/public/screenshots/products.png" alt="Billing System using laravel"><br>
 Product Create
-<img src="https://raw.githubusercontent.com/mkk-karthi/laravel-billing-system/master/public/tutorial/product-create.png" alt="Billing System using laravel"><br>
+<img src="https://raw.githubusercontent.com/mkk-karthi/laravel-billing-system/master/public/screenshots/product-create.png" alt="Billing System using laravel"><br>
 Billing
-<img src="https://raw.githubusercontent.com/mkk-karthi/laravel-billing-system/master/public/tutorial/billing.png" alt="Billing System using laravel"><br>
+<img src="https://raw.githubusercontent.com/mkk-karthi/laravel-billing-system/master/public/screenshots/billing.png" alt="Billing System using laravel"><br>
 Receipt
-<img src="https://raw.githubusercontent.com/mkk-karthi/laravel-billing-system/master/public/tutorial/receipt.png" alt="Billing System using laravel"><br>
+<img src="https://raw.githubusercontent.com/mkk-karthi/laravel-billing-system/master/public/screenshots/receipt.png" alt="Billing System using laravel"><br>
+Mail Receipt
+<img src="https://raw.githubusercontent.com/mkk-karthi/laravel-billing-system/master/public/screenshots/mail.png" alt="Billing System using laravel"><br>
 </p>

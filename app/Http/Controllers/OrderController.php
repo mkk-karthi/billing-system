@@ -199,7 +199,15 @@ class OrderController extends Controller
 	{
 		$data = $this->getOrderDetails($id);
 
-		return view('order_receipt', ["order" => $data]);
+		if (!empty($data)) {
+			return view('order_receipt', [
+				"order" => $data,
+				"mailUrl" => route("order.sendMail", ["id" => $id]),
+				"printData" => view('mail.receipt', ["order" => $data])
+			]);
+		} else {
+			return view('no_data');
+		}
 	}
 
 	public function getOrderDetails($id)
@@ -329,7 +337,7 @@ class OrderController extends Controller
 		$user = User::find($id);
 
 		$data = [];
-		if (count($orders)) {
+		if (!empty($orders)) {
 			foreach ($orders as $order) {
 
 				// fetch order details
@@ -353,6 +361,39 @@ class OrderController extends Controller
 			}
 		}
 
-		return view('user_orders', ["orders" => $data, "user" => $user]);
+		if (!empty($data)) {
+			return view('user_orders', ["orders" => $data, "user" => $user]);
+		} else {
+			return view('no_data');
+		}
+	}
+
+	public function sendMail($orderId)
+	{
+		try {
+			$order = Order::find($orderId);
+			if (empty($order)) {
+				return response()->json(["code" => 2, "message" => "Order not found"]);
+			}
+
+			$userId = $order->order_user_id;
+
+			$user = User::find($userId);
+			if (empty($user)) {
+				return response()->json(["code" => 2, "message" => "Invalid user"]);
+			}
+
+			// send notification
+			if (config("common.sendNotification")) {
+				$user->notify(new OrderReceipt($orderId));
+			}
+
+			return response()->json([
+				"code" => 0,
+				"message" => "Mail sened"
+			]);
+		} catch (Exception $ex) {
+			return response()->json(["code" => 2, "message" => $ex->getMessage()]);
+		}
 	}
 }

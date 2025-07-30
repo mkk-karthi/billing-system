@@ -28,3 +28,4 @@ Route::get('order/{id}', [OrderController::class, "view"])->name("order.view");
 Route::get('/orders', [OrderController::class, "ordersList"])->name('orders');
 Route::post('/orders', [OrderController::class, "checkUser"])->name("user.check");
 Route::get('/order/user/{id}', [OrderController::class, "userOrders"])->name("user.orders");
+Route::get('/order/sendMail/{id}', [OrderController::class, "sendMail"])->name("order.sendMail");

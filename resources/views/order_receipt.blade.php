@@ -8,13 +8,22 @@
                     <a href="{{ route('user.orders', ['id' => $order['user_id']]) }}" class="btn btn-primary m-2">
                         <i class="bi bi-arrow-left"></i>
                         Back</a>
-                    <button class="btn btn-primary m-2" onclick="printData()">
-                        <i class="bi bi-printer"></i>
-                        Print</button>
+                    <div>
+                        @if (config('common.sendNotification'))
+                            <button class="btn btn-primary m-2" id="mail-btn">
+                                <i class="bi bi-envelope"></i>
+                                Mail</button>
+                        @endif
+                        <button class="btn btn-primary m-2" id="print-btn">
+                            <i class="bi bi-printer"></i>
+                            Print</button>
+                    </div>
                 </div>
-                <div id="print">
+                <div class="my-3" id="messages"> </div>
+                <div>
                     <div class="row">
                         <div class="col-12 mt-3 text-center">
+                            <p class="fw-bold fs-3">{{ env('APP_NAME') }}</p>
                             <p class="fw-bold fs-5">Inv. No: {{ $order['invoice_no'] }}</p>
                         </div>
                         <div class="col-12 col-sm-6 mt-3">
@@ -147,20 +156,44 @@
     </div>
 
     <script>
-        function printData() {
-            let printWindow = window.open();
-            let printContent = document.getElementById('print').innerHTML;
+        $(function() {
+            $("#print-btn").click(() => {
+                let printWindow = window.open();
+                printWindow.document.write(`{!! $printData !!}`);
+                printWindow.document.title = `Receipt - {{ $order['invoice_no'] }}`;
+                printWindow.print();
+                printWindow.close();
+            });
 
-            printWindow.document.write();
-            printWindow.document.write(`<html>
-				<head>
-					<title>Receipt - {{ $order['invoice_no'] }}</title>
-					<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-				</head>
-				<body> ${printContent} </body></html>`);
-            printWindow.print();
-            printWindow.close();
-        }
+            $("#mail-btn").click(() => {
+                $.get("{{ $mailUrl }}", (res) => {
+                    if (res.code == 2) {
+
+                        // show error message
+                        const msgContent =
+                            `<div class="alert alert-danger" role="alert">${res.message}</div>`;
+                        $("#messages").append(msgContent)
+
+                        setTimeout(() => {
+                            $("#messages").html($("#messages").html()
+                                .replace(msgContent, ""))
+                        }, 5000);
+                    } else {
+
+                        // show success message
+                        const msgContent =
+                            `<div class="alert alert-success" role="alert">${res.message}</div>`;
+                        $("#messages").html(msgContent)
+
+                        setTimeout(() => {
+                            $("#messages").html($("#messages").html()
+                                .replace(msgContent, ""))
+                        }, 5000);
+
+                    }
+                })
+            });
+        });
     </script>
 
 @endsection

@@ -133,13 +133,12 @@ class ProductsController extends Controller
 		// get product
 		$product = Products::with(["variants"])->where("product_id", $id)->first();
 
-		if (is_null($product)) {
-			return abort(404);
-		} else {
+		if (!empty($product)) {
 
 			$product = $product->toArray();
-
 			return view('products.create', ["id" => $id, "product" => $product]);
+		} else {
+			return view('no_data');
 		}
 	}
 
