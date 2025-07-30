@@ -9,7 +9,7 @@ A simple billing system built with **Laravel** and **MySQL**. This application i
 
 - ✅ **Product CRUD** with variant and image upload support  
 - 🛒 **Billing multiple products** in a single invoice  
-- 💸 **Discount application** and total calculations  
+- 💸 **Discount application** and tax calculations  
 - 📄 **E-Receipt generation** after billing  
 - 🔔 **Notification system** Email
 
@@ -64,8 +64,7 @@ php artisan serve
 ## 🧮 Billing & Discounts
 
 -   Add multiple products to a bill
--   Apply for discounts
--   Automatically calculate total
+-   Apply for discounts and Tax calculation
 -   Save and review previous bills
 
 ## 📩 E-Receipt & Notifications
